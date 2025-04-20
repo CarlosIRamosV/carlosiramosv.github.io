@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  posts: (CollectionEntry<"articles"> & { slug?: string })[];
+  category: string;
+}
+
+const { posts, category } = Astro.props;
+---
+
+{
+  posts
+    .filter((post) => post.data.category === category)
+    .map((post) => (
+      <a href={`/${Astro.params.lang}/articles/${post.slug}`}>
+        <p>{post.data.title}</p>
+      </a>
+    ))
+}
