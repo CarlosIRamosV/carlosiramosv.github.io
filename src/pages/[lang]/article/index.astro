@@ -1,0 +1,8 @@
+---
+export async function getStaticPaths() {
+  return [{ params: { lang: "en-us" } }, { params: { lang: "es-mx" } }];
+}
+const validLang = Astro.params?.lang || "en-us"; // Default to "en-us" if lang is undefined
+---
+
+<meta http-equiv="refresh" content={`0;url=/${validLang}/articles/`} />
