@@ -1,0 +1,77 @@
+---
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const navItems = ["", "articles", "projects", "contact"];
+---
+
+<nav class="bg-white shadow-md transition-colors dark:bg-gray-900">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 justify-between">
+      <!-- Logo/Title -->
+      <div class="flex flex-shrink-0 items-center">
+        <a href="/" class="text-xl font-bold text-blue-600 dark:text-blue-400"
+          >{t("nav.title")}</a
+        >
+      </div>
+
+      <!-- Desktop navigation -->
+      <div class="hidden md:flex md:items-center md:space-x-6">
+        {
+          navItems.map((path) => (
+            <a
+              href={`/${lang}/${path}`}
+              class="text-neutral-700 hover:text-blue-600 dark:text-neutral-200 dark:hover:text-blue-400"
+            >
+              {t(`nav.${path || "home"}` as string)}
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Mobile menu container -->
+      <div
+        x-data="{ isOpen: false }"
+        class="relative flex items-center md:hidden"
+      >
+        <!-- Mobile menu button -->
+        <button
+          @click="isOpen = !isOpen"
+          class="rounded-md p-2 text-neutral-500 hover:bg-blue-600 hover:text-white focus:ring-2 focus:ring-offset-2 focus:outline-none dark:text-neutral-400 dark:hover:bg-blue-800"
+        >
+          <svg
+            class="h-6 w-6"
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+
+        <!-- Mobile menu dropdown -->
+        <div
+          x-show="isOpen"
+          class="absolute top-full right-0 z-10 -mr-4 w-screen space-y-1 border-t bg-white px-2 pt-2 pb-3 shadow-lg sm:-mr-6 lg:-mr-8 dark:border-gray-700 dark:bg-gray-900"
+          x-cloak
+        >
+          {
+            navItems.map((path) => (
+              <a
+                href={`/${lang}/${path}`}
+                class="block rounded-md px-3 py-2 text-base font-medium text-neutral-700 hover:bg-blue-100 dark:text-neutral-200 dark:hover:bg-blue-800"
+              >
+                {t(`nav.${path || "home"}` as string)}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
