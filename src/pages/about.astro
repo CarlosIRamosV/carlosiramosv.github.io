@@ -1,0 +1,237 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const skills = {
+  "Lenguajes de Programación": [
+    { name: "Python", icon: "🐍" },
+    { name: "Rust", icon: "⚙️" },
+    { name: "Java", icon: "☕" },
+    { name: "JavaScript", icon: "💛" },
+    { name: "TypeScript", icon: "💙" },
+  ],
+  "Desarrollo Web": [
+    { name: "Astro", icon: "🚀" },
+    { name: "React", icon: "⚛️" },
+    { name: "Next.js", icon: "▲" },
+    { name: "WordPress", icon: "📝" },
+  ],
+  "Bases de Datos": [
+    { name: "PostgreSQL", icon: "🐘" },
+    { name: "MySQL", icon: "🐬" },
+    { name: "Redis", icon: "⚡" },
+    { name: "SQLite", icon: "📊" },
+  ],
+  "DevOps y Automatización": [
+    { name: "Docker", icon: "🐋" },
+    { name: "Git", icon: "📚" },
+    { name: "Scripting en Bash", icon: "💻" },
+    { name: "CI/CD", icon: "♾️" },
+  ],
+  "Sistemas y Redes": [
+    { name: "Administración Linux", icon: "🐧" },
+    { name: "Nginx", icon: "🌐" },
+    { name: "Redes TCP/IP", icon: "🔌" },
+    { name: "Soporte técnico", icon: "🔧" },
+    { name: "Mantenimiento de equipos", icon: "🖥️" },
+  ],
+  Ciberseguridad: [
+    { name: "Pentesting", icon: "🔍" },
+    { name: "Análisis de Vulnerabilidades", icon: "🛡️" },
+    { name: "Seguridad en Redes", icon: "🔒" },
+    { name: "Protección web con Cloudflare", icon: "☁️" },
+    { name: "Hardening de Sistemas", icon: "🔐" },
+    { name: "Análisis de Malware", icon: "🦠" },
+  ],
+};
+
+const softSkills = [
+  "Trabajo en equipo y colaboración en entornos multidisciplinarios",
+  "Resolución de problemas complejos de forma lógica y estructurada",
+  "Comunicación efectiva en entornos técnicos y no técnicos",
+  "Adaptabilidad y disposición al aprendizaje continuo",
+  "Pensamiento crítico aplicado a ciberseguridad y desarrollo",
+  "Autonomía en la gestión de tareas y proyectos",
+];
+
+const experience = [
+  {
+    title: "Servicio Social en Biblioteca",
+    company: "Centro de Investigacion y Docencia",
+    period: "2024 - 2025",
+    responsibilities: [
+      "Desarrollo de sitios web institucionales utilizando WordPress",
+      "Digitalización y administración de bases de datos académicas",
+      "Automatización de procesos administrativos mediante scripts en Python",
+      "Creación de una plataforma de consulta de tesis basada en tecnologías web modernas",
+      "Aplicación de prácticas básicas de seguridad web y optimización de rendimiento usando Cloudflare",
+    ],
+  },
+];
+
+const education = [
+  {
+    degree: "Ingeniería en Sistemas Computacionales",
+    institution: "Instituto Tecnológico de Chihuahua II",
+    period: "2021 - Actualidad",
+    specialization: "Especialidad: Ciberseguridad",
+  },
+];
+---
+
+<Layout title="Sobre Mí - Carlos Iram Ramos Vasquez">
+  <div class="space-y-16 py-8">
+    <!-- Hero Section -->
+    <section class="text-center md:text-left">
+      <h1 class="text-4xl font-bold mb-4">Carlos Iram Ramos Vasquez</h1>
+      <h2 class="text-xl text-gray-600 dark:text-gray-400 mb-6">
+        Ingeniero en Sistemas con Especialidad en Ciberseguridad
+      </h2>
+      <p class="max-w-3xl text-gray-700 dark:text-gray-300 mb-8">
+        Estudiante de Ingeniería en Sistemas con especialidad en Ciberseguridad.
+        Interesado en desarrollo backend, soporte técnico, redes y
+        administración de equipos. Con conocimientos en servidores Linux,
+        seguridad web, automatización y desarrollo con tecnologías modernas. Me
+        destaco por ser proactivo, adaptable y con un enfoque claro en la
+        resolución de problemas tecnológicos.
+      </p>
+
+      <!-- Botón de descarga del CV -->
+      <a
+        href="/CV-CarlosRamos.pdf"
+        download
+        class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 font-medium"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+          ></path>
+        </svg>
+        Descargar CV
+      </a>
+    </section>
+
+    <!-- Experience Section -->
+    <section>
+      <h2 class="text-2xl font-bold mb-6">Experiencia Laboral</h2>
+      {
+        experience.map((exp) => (
+          <div class="mb-8">
+            <h3 class="text-xl font-semibold">{exp.title}</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-2">
+              {exp.company} | {exp.period}
+            </p>
+            <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+              {exp.responsibilities.map((resp) => (
+                <li>{resp}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </section>
+
+    <!-- Education Section -->
+    <section>
+      <h2 class="text-2xl font-bold mb-6">Formación Académica</h2>
+      {
+        education.map((edu) => (
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold">{edu.degree}</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              {edu.institution} | {edu.period}
+            </p>
+            <p class="text-gray-700 dark:text-gray-300">{edu.specialization}</p>
+          </div>
+        ))
+      }
+    </section>
+
+    <!-- Technical Skills Section -->
+    <!-- Technical Skills Section -->
+    <section>
+      <h2 class="text-2xl font-bold mb-6">Habilidades Técnicas</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          Object.entries(skills).map(([category, skillList]) => (
+            <div class="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+              <h3 class="text-lg font-semibold mb-4 text-blue-600 dark:text-blue-400">
+                {category}
+              </h3>
+              <ul class="space-y-3">
+                {skillList.map((skill) => (
+                  <li class="flex items-center gap-3">
+                    <span
+                      class="text-xl"
+                      role="img"
+                      aria-label={`${skill.name} icon`}
+                    >
+                      {skill.icon}
+                    </span>
+                    <span class="text-gray-700 dark:text-gray-300">
+                      {skill.name}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Soft Skills Section -->
+    <section>
+      <h2 class="text-2xl font-bold mb-6">Habilidades Blandas</h2>
+      <div class="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-lg">
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {
+            softSkills.map((skill) => (
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-blue-500 rounded-full" />
+                {skill}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section>
+      <h2 class="text-2xl font-bold mb-6">Contacto</h2>
+      <div class="flex flex-wrap gap-4">
+        <a
+          href="mailto:carlos@carlosiramosv.com"
+          class="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+        >
+          <span>📧 carlos@carlosiramosv.com</span>
+        </a>
+        <a
+          href="https://github.com/carlosiramosv"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+        >
+          <span>GitHub</span>
+        </a>
+        <a
+          href="https://linkedin.com/in/carlosiramosv"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+        >
+          <span>LinkedIn</span>
+        </a>
+      </div>
+    </section>
+  </div>
+</Layout>

@@ -1,0 +1,95 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const projectEntries = await getCollection("projects");
+  return projectEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const statusColors = {
+  completed: "bg-green-100 text-green-800",
+  "in-progress": "bg-yellow-100 text-yellow-800",
+  planned: "bg-blue-100 text-blue-800",
+};
+---
+
+<Layout title={entry.data.title}>
+  <article class="max-w-4xl mx-auto px-4 py-8">
+    {
+      entry.data.image && (
+        <img
+          src={entry.data.image}
+          alt={`${entry.data.title} preview`}
+          class="w-full h-64 object-cover rounded-lg mb-8"
+        />
+      )
+    }
+
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold mb-4">{entry.data.title}</h1>
+
+      <div class="flex flex-wrap gap-4 items-center mb-6">
+        <span
+          class={`px-3 py-1 rounded-full text-sm ${statusColors[entry.data.status]}`}
+        >
+          {
+            entry.data.status.charAt(0).toUpperCase() +
+              entry.data.status.slice(1)
+          }
+        </span>
+
+        <span class="text-gray-600">
+          Completado: {entry.data.completionDate.toLocaleDateString()}
+        </span>
+      </div>
+
+      <div class="flex gap-4 mb-6">
+        {
+          entry.data.github && (
+            <a
+              href={entry.data.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800"
+            >
+              Ver en GitHub
+            </a>
+          )
+        }
+        {
+          entry.data.liveDemo && (
+            <a
+              href={entry.data.liveDemo}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
+            >
+              Demo en vivo
+            </a>
+          )
+        }
+      </div>
+
+      <div class="flex flex-wrap gap-2 mb-6">
+        {
+          entry.data.technologies.map((tech) => (
+            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">
+              {tech}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="prose prose-slate dark:prose-invert max-w-none">
+      <Content />
+    </div>
+  </article>
+</Layout>

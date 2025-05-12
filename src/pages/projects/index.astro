@@ -1,0 +1,76 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+const projects = await getCollection("projects");
+const sortedProjects = projects.sort((a, b) => {
+  // Primero los destacados
+  if (a.data.featured !== b.data.featured) {
+    return a.data.featured ? -1 : 1;
+  }
+  // Luego por fecha de finalización
+  return b.data.completionDate.getTime() - a.data.completionDate.getTime();
+});
+---
+
+<Layout title="Proyectos">
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-8">Mis Proyectos</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        sortedProjects.map((project) => (
+          <article class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+            {project.data.image && (
+              <img
+                src={project.data.image}
+                alt={`${project.data.title} preview`}
+                class="w-full h-48 object-cover"
+              />
+            )}
+            <div class="p-6">
+              <h2 class="text-2xl font-semibold mb-2">
+                <a
+                  href={`/projects/${project.slug}`}
+                  class="hover:text-blue-600"
+                >
+                  {project.data.title}
+                </a>
+              </h2>
+              <p class="text-gray-600 mb-4">{project.data.description}</p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                {project.data.technologies.map((tech) => (
+                  <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-sm">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              <div class="flex gap-4">
+                {project.data.github && (
+                  <a
+                    href={project.data.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-gray-600 hover:text-blue-600"
+                  >
+                    GitHub
+                  </a>
+                )}
+                {project.data.liveDemo && (
+                  <a
+                    href={project.data.liveDemo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-gray-600 hover:text-blue-600"
+                  >
+                    Demo en vivo
+                  </a>
+                )}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
